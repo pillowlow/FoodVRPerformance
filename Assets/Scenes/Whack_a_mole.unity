@@ -10993,6 +10993,32 @@ MonoBehaviour:
         color1: {r: 8, g: 0, b: 2.6352942, a: 1}
         color2: {r: 16, g: 13.490196, b: 0, a: 1}
       booParalList: []
+--- !u!114 &1770568289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1770568286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00c1831412589b240b5801e162cd05d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TriggerList:
+  - name: OnOff
+    SocketList:
+    - light: {fileID: 1830308112}
+      flaotParaList:
+      - para: 0
+        val1: 1
+        val2: 5
+      colorParaList:
+      - color1: {r: 1, g: 0.0990566, b: 0.34592125, a: 0}
+        color2: {r: 0.9433962, g: 0.48906854, b: 0, a: 0}
+      needBool:
+        need: 0
+        threshold: 0
 --- !u!1 &1798488223
 GameObject:
   m_ObjectHideFlags: 0

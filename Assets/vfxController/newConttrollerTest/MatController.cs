@@ -80,7 +80,7 @@ public class MatController : MonoBehaviour
         }
     }
 
-    public void SetTriggerFade(string name ,float percent, float duration, float boolFadeThereshold = 0.5f){
+    public void SetTriggerFade(string name ,float percent, float duration){
         Trigger trigger = TriggerList.Find(trigger => trigger.name == name);
         float clamped_percent = Mathf.Clamp(percent,0,1);
         foreach(Matsocket socket in trigger.SocketList){
@@ -98,7 +98,7 @@ public class MatController : MonoBehaviour
                 }
                 //set all bool values
                 foreach(BoolParaSet Bset in socket.booParalList){
-                    StartCoroutine(SetBoolFade(Set,Bset.para,percent>=Bset.threshold,boolFadeThereshold,duration));
+                    StartCoroutine(SetBoolFade(Set,Bset.para,percent>=Bset.threshold,Bset.threshold,duration));
                 }
             }
             
@@ -122,9 +122,10 @@ public class MatController : MonoBehaviour
             // fade processing 
             FadeFlags[key]= true;
             //start fade
+            float initValue = Set.Mat.GetFloat(name);
             float timer = 0.0f;
             while(timer <= duration){
-                Set.Mat.SetFloat(name,Mathf.Lerp(Set.Mat.GetFloat(name),target,timer/duration));
+                Set.Mat.SetFloat(name,Mathf.Lerp(initValue,target,timer/duration));
                 timer+=Time.deltaTime;
                 yield return null;
             }
@@ -158,9 +159,10 @@ public class MatController : MonoBehaviour
 
                 // Start fade
                 float timer = 0.0f;
+                Color initColor = Set.Mat.GetColor(name);
                 while (timer < duration)
                 {
-                    Color currentColor = Color.Lerp(Set.Mat.GetColor(name), target, timer / duration);
+                    Color currentColor = Color.Lerp(initColor, target, timer / duration);
                     Set.Mat.SetColor(name,currentColor);
                     timer += Time.deltaTime;
                     yield return null;

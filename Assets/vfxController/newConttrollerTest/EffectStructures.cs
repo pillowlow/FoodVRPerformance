@@ -29,13 +29,41 @@ using UnityEngine;
         public float threshold;
      }
 
+     [System.Serializable]
+    public struct LightColorParaSet{
+  
+        [ColorUsage(true, true)] 
+        public Color color1;
+        [ColorUsage(true, true)] 
+        public Color color2;
+    }
+    [System.Serializable]
+    public struct LightFloatParaSet{
+        public LightPara para;
+       
+          [Tooltip("default min")]
+        public float val1;
+         [Tooltip("default max")]
+        public float val2;
+    }
+
+    [System.Serializable]
+     public struct LightBoolParaSet{
+        public bool need;
+        [Range(0, 1)] 
+        public float threshold;
+     }
+
+
      public struct MatInstSet{
         public string Obj_name;
         public Material Mat;
       
      }
 
-     public enum LightState{
-      
+     public enum LightPara{
+        INTENSITY,
+        RANGE,
+
      }
     

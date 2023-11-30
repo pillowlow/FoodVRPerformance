@@ -72,7 +72,7 @@ public class VFXController : MonoBehaviour
         }
     }
 
-    public void SetTriggerFade(string name ,float percent, float duration, float boolFadeThereshold = 0.5f){
+    public void SetTriggerFade(string name ,float percent, float duration){
         Trigger trigger = TriggerList.Find(trigger => trigger.name == name);
         float clamped_percent = Mathf.Clamp(percent,0,1);
         foreach(VFXsocket socket in trigger.SocketList){
@@ -87,7 +87,7 @@ public class VFXController : MonoBehaviour
             }
             //set all bool values
             foreach(BoolParaSet Bset in socket.booParalList){
-                StartCoroutine(SetBoolFade(socket.VFX,Bset.para,percent>=Bset.threshold,boolFadeThereshold,duration));
+                StartCoroutine(SetBoolFade(socket.VFX,Bset.para,percent>=Bset.threshold,Bset.threshold,duration));
             }
         }
 
@@ -109,8 +109,9 @@ public class VFXController : MonoBehaviour
             FadeFlags[key]= true;
             //start fade
             float timer = 0.0f;
+            float initvalue = VFX.GetFloat(name);
             while(timer <= duration){
-                VFX.SetFloat(name,Mathf.Lerp(VFX.GetFloat(name),target,timer/duration));
+                VFX.SetFloat(name,Mathf.Lerp(initvalue,target,timer/duration));
                 timer+=Time.deltaTime;
                 yield return null;
             }
@@ -143,9 +144,10 @@ public class VFXController : MonoBehaviour
 
                 // Start fade
                 float timer = 0.0f;
+                Color initcolor = VFX.GetVector4(name);
                 while (timer < duration)
                 {
-                    Color currentColor = Color.Lerp(VFX.GetVector4(name), target, timer / duration);
+                    Color currentColor = Color.Lerp(initcolor, target, timer / duration);
                     VFX.SetVector4(name, HdrColor2Vector4(currentColor));
                     timer += Time.deltaTime;
                     yield return null;
