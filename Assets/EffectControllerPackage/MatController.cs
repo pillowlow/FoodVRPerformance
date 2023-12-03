@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MatController : MonoBehaviour
+public class MatController : MonoBehaviour,IController
 {   
     
     
@@ -17,7 +17,7 @@ public class MatController : MonoBehaviour
     }
     [System.Serializable]
     public struct Trigger{
-        public string name;
+        public string ID;
         public List<Matsocket> SocketList;
         
     }
@@ -39,6 +39,14 @@ public class MatController : MonoBehaviour
         // cloning materials
         FillMatInstance();
         Debug.Log("InstMat:" + MatInsSetList.Count);
+
+        for (int i = 0; i < TriggerList.Count; i++) {
+        if (TriggerList[i].ID == "") {
+            Trigger trig = TriggerList[i];
+            trig.ID = "OnOff";
+            TriggerList[i] = trig;
+        }
+        }
     }
 
     // Update is called once per frame
@@ -50,7 +58,7 @@ public class MatController : MonoBehaviour
     
     // set on
     public void SetTrigger(string name,float percent){
-        Trigger trigger = TriggerList.Find(trigger => trigger.name == name);
+        Trigger trigger = TriggerList.Find(trigger => trigger.ID == name);
         float clamped_percent = Mathf.Clamp(percent,0,1);
         
         // set float 
@@ -81,7 +89,7 @@ public class MatController : MonoBehaviour
     }
 
     public void SetTriggerFade(string name ,float percent, float duration){
-        Trigger trigger = TriggerList.Find(trigger => trigger.name == name);
+        Trigger trigger = TriggerList.Find(trigger => trigger.ID == name);
         float clamped_percent = Mathf.Clamp(percent,0,1);
         foreach(Matsocket socket in trigger.SocketList){
 

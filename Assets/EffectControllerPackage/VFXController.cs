@@ -1,13 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Oculus.Platform.Models;
 using UnityEngine;
 using UnityEngine.VFX;
 
 
 
-public class VFXController : MonoBehaviour
+public class VFXController : MonoBehaviour,IController
 {   
 
     
@@ -22,7 +21,7 @@ public class VFXController : MonoBehaviour
     }
     [System.Serializable]
     public struct Trigger{
-        public string name;
+        public string ID ;
         public List<VFXsocket> SocketList;
         
     }
@@ -35,7 +34,13 @@ public class VFXController : MonoBehaviour
     // setting paras to control? 
     void Start()
     {
-        
+        for (int i = 0; i < TriggerList.Count; i++) {
+        if (TriggerList[i].ID == "") {
+            Trigger trig = TriggerList[i];
+            trig.ID = "OnOff";
+            TriggerList[i] = trig;
+        }
+        }
     }
 
     // Update is called once per frame
@@ -46,7 +51,7 @@ public class VFXController : MonoBehaviour
 
     // set on
     public void SetTrigger(string name,float percent){
-        Trigger trigger = TriggerList.Find(trigger => trigger.name == name);
+        Trigger trigger = TriggerList.Find(trigger => trigger.ID == name);
         float clamped_percent = Mathf.Clamp(percent,0,1);
         
         // set float 
@@ -73,7 +78,7 @@ public class VFXController : MonoBehaviour
     }
 
     public void SetTriggerFade(string name ,float percent, float duration){
-        Trigger trigger = TriggerList.Find(trigger => trigger.name == name);
+        Trigger trigger = TriggerList.Find(trigger => trigger.ID == name);
         float clamped_percent = Mathf.Clamp(percent,0,1);
         foreach(VFXsocket socket in trigger.SocketList){
             // set all float value

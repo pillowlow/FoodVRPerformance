@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class LightController : MonoBehaviour
+public class LightController : MonoBehaviour,IController
 {   
     [System.Serializable]
     public struct Lightsocket{
@@ -16,7 +16,7 @@ public class LightController : MonoBehaviour
     }
     [System.Serializable]
     public struct Trigger{
-        public string name;
+        public string ID ;
         public List<Lightsocket> SocketList;
         
     }
@@ -28,8 +28,15 @@ public class LightController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
+        for (int i = 0; i < TriggerList.Count; i++) {
+        if (TriggerList[i].ID == "") {
+            Trigger trig = TriggerList[i];
+            trig.ID = "OnOff";
+            TriggerList[i] = trig;
+        }
+}
+
+    }       
 
     // Update is called once per frame
     void Update()
@@ -40,7 +47,7 @@ public class LightController : MonoBehaviour
     
     // set on
     public void SetTrigger(string name ,float percent){
-        Trigger trigger = TriggerList.Find(trigger => trigger.name == name);
+        Trigger trigger = TriggerList.Find(trigger => trigger.ID == name);
         float clamped_percent = Mathf.Clamp(percent,0,1);
         
         // set float 
@@ -72,7 +79,7 @@ public class LightController : MonoBehaviour
     }
 
     public void SetTriggerFade(string name ,float percent, float duration){
-        Trigger trigger = TriggerList.Find(trigger => trigger.name == name);
+        Trigger trigger = TriggerList.Find(trigger => trigger.ID == name);
         float clamped_percent = Mathf.Clamp(percent,0,1);
         foreach(Lightsocket socket in trigger.SocketList){
             // set all float value
@@ -113,14 +120,16 @@ public class LightController : MonoBehaviour
             float initIntensity = light.intensity;
             float initRange = light.range;
             while(timer <= duration){
+                 
                 switch(para){
                     case( LightPara.INTENSITY):
-                        light.intensity = Mathf.Lerp(initIntensity,target,timer/duration);Debug.Log( "asdfaf" + light.intensity);break;
+                        light.intensity = Mathf.Lerp(initIntensity,target,timer/duration);Debug.Log( "current intensity : " + light.intensity +"" );break;
                         
                     case( LightPara.RANGE):
                         light.range = Mathf.Lerp(initRange,target,timer/duration);break;
                 }
                 timer += Time.deltaTime;
+               yield return null;
             }
             switch(para){
                     case( LightPara.INTENSITY):
@@ -129,7 +138,7 @@ public class LightController : MonoBehaviour
                         light.range = target;break;
             }
             FadeFlags[key]= false;
-            yield return null;
+            
         }
         else{
             Debug.Log("cant find light");

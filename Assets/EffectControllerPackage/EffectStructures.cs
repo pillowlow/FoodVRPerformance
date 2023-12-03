@@ -1,15 +1,34 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
+
+  // interfaces
+  public interface IController {
+    public void SetTrigger(string name,float percent);
+    public void SetTriggerFade(string name ,float percent, float duration);
+
+  }
+
+  [Serializable]
+  public class ControllerWrapper {
+      public MonoBehaviour component;
+
+      public IController GetController() {
+          return component as IController;
+      }
+  }
+
+  // structs
   [System.Serializable]
  
     public struct FloatParaSet{
        
         public string para;
-         [Tooltip("default min")]
+         [Tooltip("default sleep")]
         public float val1;
-         [Tooltip("default max")]
+         [Tooltip("default wake")]
         public float val2;
     }
 
@@ -28,7 +47,14 @@ using UnityEngine;
         [Range(0, 1)] 
         public float threshold;
      }
-
+    [System.Serializable]
+    public struct Vec3ParaSet{
+      public TrasnsMode mode;
+      [Tooltip("default sleep")]
+      public Vector3 vec01;
+       [Tooltip("default wake")]
+      public Vector3 vec02;
+    }
      [System.Serializable]
     public struct LightColorParaSet{
   
@@ -54,6 +80,15 @@ using UnityEngine;
         public float threshold;
      }
 
+    [System.Serializable]
+    public struct ControlEvent{
+     
+      public string ID ;
+      public bool is_testing ;
+      
+      [Range(0, 1)] 
+      public float testbar ;
+    }
 
      public struct MatInstSet{
         public string Obj_name;
@@ -61,9 +96,22 @@ using UnityEngine;
       
      }
 
+
+
+
      public enum LightPara{
         INTENSITY,
         RANGE,
+
+
+     }
+
+     public enum TrasnsMode{
+      POSITION,
+      ROTATION,
+      SCALE,
+      VELOCITY,
+      ROTATEVELOCITY,
 
      }
     
