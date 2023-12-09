@@ -7276,7 +7276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TriggerList:
-  - name: OnOff
+  - ID: 
     SocketList:
     - VFX: {fileID: 1749432708}
       flaotParaList:
@@ -10949,76 +10949,22 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 490632451}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1770568287
-MonoBehaviour:
+--- !u!54 &1770568292
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1770568286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b91cf61cf41f59444af2b58d198caca6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MatCnt: {fileID: 1770568288}
-  onKey: 111
-  offKey: 112
-  fadeonKey: 117
-  fadeoffKey: 105
-  ID: OnOff
-  dura: 0.5
---- !u!114 &1770568288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1770568286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7414ec21eba953f419ec94541de56216, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TriggerList:
-  - name: OnOff
-    SocketList:
-    - Mat: {fileID: 2100000, guid: d60eb933a232a074580b4e8da70d9d07, type: 2}
-      flaotParaList:
-      - para: _blind
-        val1: 0
-        val2: 0.8
-      colorParaList:
-      - para: _color1
-        color1: {r: 8, g: 0, b: 2.6352942, a: 1}
-        color2: {r: 16, g: 13.490196, b: 0, a: 1}
-      booParalList: []
---- !u!114 &1770568289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1770568286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00c1831412589b240b5801e162cd05d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TriggerList:
-  - name: OnOff
-    SocketList:
-    - light: {fileID: 1830308112}
-      flaotParaList:
-      - para: 0
-        val1: 1
-        val2: 5
-      colorParaList:
-      - color1: {r: 1, g: 0.0990566, b: 0.34592125, a: 0}
-        color2: {r: 0.9433962, g: 0.48906854, b: 0, a: 0}
-      needBool:
-        need: 0
-        threshold: 0
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1798488223
 GameObject:
   m_ObjectHideFlags: 0
